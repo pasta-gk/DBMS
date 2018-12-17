@@ -1,0 +1,180 @@
+create table volunteer (
+roll_number int (7),
+    name varchar (20),
+    contact_number int (15),
+    graduation varchar (5),
+    branch varchar (5),
+    primary key (roll_number)
+);
+
+
+create table student (
+student_id int (7),
+    name varchar (20),
+    fname varchar(20),
+    group_number varchar (5),
+    date_of_birth date,
+    sex varchar (5),
+    village varchar (20),
+    address varchar(100),
+    primary key (student_id)
+);
+
+
+create table subject (
+subject_name varchar(20),
+    class int (5),
+    primary key (subject_name, class)
+);
+
+
+create table event (
+name varchar(20),
+    date date,
+    primary key (name, date)
+);
+
+
+create table donation  (
+cause varchar(20),
+    start_date date,
+    end_date date,
+    amount int (7),
+    primary key (cause, start_date)
+);
+
+
+
+create table transport (
+name varchar(20),
+    vehicle_number varchar(10),
+    driver_name varchar(20),
+    driver_contact_numbmer int(15),
+    primary key (vehicle_number, driver_name)
+);
+
+
+create table learns (
+student_id int(7),
+    subject_name varchar(20),
+    class int (5),
+    foreign key (student_id) references student(student_id),
+    foreign key (subject_name, class) references subject(subject_name, class)
+);
+
+
+
+create table teaches (
+roll_number int (7),
+    subject_name varchar(20),
+    class int (5),
+    foreign key (roll_number) references volunteer(roll_number),
+    foreign key (subject_name, class) references subject(subject_name, class)
+);
+
+
+
+create table oversees (
+roll_number int (7),
+    cause varchar(20),
+    start_date date,
+    foreign key (roll_number) references volunteer(roll_number),
+    foreign key (cause, start_date) references donation(cause, start_date)
+);
+
+
+create table uses (
+student_id int(7),
+    vehicle_number varchar(10),
+    driver_name varchar(20),
+    
+    foreign key (student_id) references student(student_id),
+    foreign key (vehicle_number, driver_name) references transport(vehicle_number, driver_name)
+);
+
+
+
+create table participate (
+student_id int(7),
+    name varchar(20),
+    date date,
+    foreign key (student_id) references student(student_id),
+    foreign key (name, date) references event(name, date)
+);
+
+
+
+create table organises (
+roll_number int (7),
+    name varchar(20), 
+    date date,
+    foreign key (name, date) references event(name, date),
+    foreign key (roll_number) references volunteer(roll_number)
+    
+);
+
+
+
+
+
+
+
+insert into participate VALUES  
+(2016101,"tarang","2014-08-01"),
+(2016102,"tarang","2014-08-01"),
+(2016103,"rangoli competition","2016-02-01"),
+(2016104,"rangoli competition","2017-09-01"),
+(2016105,"treasure hunt","2017-07-01"),
+(2016106,"old age home","2016-06-01"),
+(2016107,"cloth distribution","2017-10-01"),
+(2016108,"painting competition","2016-03-01"),
+(2016109,"colouring competiton","2017-06-01"),
+(2016110,"plantation drive","2015-05-01");
+
+
+
+
+
+insert into organises values  
+(2016107,"tarang","2014-08-01"),
+(2016117,"tarang","2014-08-01"),
+(2016142,"rangoli competition","2016-02-01"),
+(2016143,"rangoli competition","2017-09-01"),
+(2016092,"treasure hunt","2017-07-01"),
+(2016107,"old age home","2016-06-01"),
+(2016117,"cloth distribution","2017-10-01"),
+(2016142,"painting competition","2016-03-01"),
+(2016143,"colouring competiton","2017-06-01"),
+(2016092,"plantation drive","2015-05-01");
+
+
+
+
+create table login (
+roll_number int(7),
+    password varchar(15),
+    primary key (roll_number),
+    foreign key (roll_number) references volunteer(roll_number)
+);
+
+
+create table free (
+roll_number int (7),
+    day varchar(10),
+    primary key (roll_number, day),
+    foreign key (roll_number) references volunteer(roll_number)
+);
+
+
+
+insert into free values
+(2016117, "monday"),
+(2016117, "tuesday"),
+(2016107, "wenesday"),
+(2016107, "thursday"),
+(2016142, "friday"),
+(2016142, "saturday"),
+(2016143, "sunday"),
+(2016143, "monday"),
+(2016092, "tuesday"),
+(2016092, "wednesday");
